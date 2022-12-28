@@ -228,6 +228,23 @@ class FrameExcel(tk.Frame):
         self.varAnio=tk.StringVar()
         self.varNombreArchivoExcel=tk.StringVar()
         self.varNombreDBExcelDMQ=tk.StringVar()
+        self.varHo=tk.StringVar()
+        self.varH=tk.StringVar()
+        self.varRugosidad=tk.StringVar()
+        self.varFC1=tk.StringVar()
+        self.varFC2=tk.StringVar()
+        self.varFC3=tk.StringVar()
+        self.varNG=tk.StringVar()
+        self.varArea=tk.StringVar()
+        
+        self.varHo.set("0")
+        self.varH.set("0")
+        self.varRugosidad.set("0")
+        self.varFC1.set("0")
+        self.varFC2.set("0")
+        self.varFC3.set("0")
+        self.varNG.set("0")
+        self.varArea.set("0")
 
         self.varLat.set("-0.2129026")
         self.varLng.set("-78.492215")
@@ -246,6 +263,9 @@ class FrameExcel(tk.Frame):
         self.varG.set("03")
         self.varTONC.set("04")
         self.varPmaxSTC.set("05")
+        self.varHo.set("0")
+        self.varH.set("0")
+        self.varRugosidad.set("0")
         
         self.varAnguloInc.trace("w",self.callback_varAnguloInc)
         
@@ -301,7 +321,7 @@ class FrameExcel(tk.Frame):
         self.frameTablaResultadosIzq.rowconfigure(1,weight=1)
         self.frameTablaResultadosIzq.columnconfigure(0,weight=1)
         self.comboTRIzq.bind('<<ComboboxSelected>>', self.seleccionComboTRIzq)  
-        self.comboTRIzq.grid(column=0,row=0,sticky="WE",pady=2)
+        self.comboTRIzq.grid(column=0,row=0,sticky="WE",pady=1)
         
         self.comboTRMedio = ttk.Combobox(self.frameTablaResultadosMedio,
             state="readonly",
@@ -312,7 +332,7 @@ class FrameExcel(tk.Frame):
         self.frameTablaResultadosMedio.rowconfigure(1,weight=1)
         self.frameTablaResultadosMedio.columnconfigure(0,weight=1)
         self.comboTRMedio.bind('<<ComboboxSelected>>', self.seleccionComboTRMedio)  
-        self.comboTRMedio.grid(column=0,row=0,sticky="WE",pady=2)
+        self.comboTRMedio.grid(column=0,row=0,sticky="WE",pady=1)
         
         self.comboTRDer = ttk.Combobox(self.frameTablaResultadosDer,
             state="readonly",
@@ -323,7 +343,7 @@ class FrameExcel(tk.Frame):
         self.frameTablaResultadosDer.rowconfigure(1,weight=1)
         self.frameTablaResultadosDer.columnconfigure(0,weight=1)
         self.comboTRDer.bind('<<ComboboxSelected>>', self.seleccionComboTRDer)  
-        self.comboTRDer.grid(column=0,row=0,sticky="WE",pady=2)
+        self.comboTRDer.grid(column=0,row=0,sticky="WE",pady=1)
         
         
         self.df_vacioIzq=pd.DataFrame({"no data":[]})
@@ -409,7 +429,7 @@ class FrameExcel(tk.Frame):
         # self.frameResultadosGraficos=tk.Frame(self.frameDerecha,bg="gray94")
         # self.frameResultadosTabla=tk.Frame(self.frameDerecha,bg="gray94")
 
-        self.frameIzquierda = tk.Frame(self,borderwidth=1,relief="ridge",bg = 'steel blue',padx=5,pady=5)
+        self.frameIzquierda = tk.Frame(self,borderwidth=1,relief="ridge",bg = 'steel blue',padx=5,pady=1)
 
         self.estiloTabs = ttk.Style()
         self.estiloTabs.configure('TNotebook.Tab', font=('Arial','12','bold') )
@@ -479,10 +499,10 @@ class FrameExcel(tk.Frame):
         
         self.comboBases.bind('<<ComboboxSelected>>', self.seleccionComboBases)  
 
-        self.labelMenu.grid(column=0,row=0,sticky="NEW",pady=5)
-        self.labelEscogerBase.grid(column=0,row=1,sticky="NEW",pady=2)
+        self.labelMenu.grid(column=0,row=0,columnspan=2,sticky="NEW",pady=1)
+        self.labelEscogerBase.grid(column=0,row=1,columnspan=2,sticky="NEW",pady=1)
 
-        self.comboBases.grid(column=0,row=2,sticky="NEW",pady=2)
+        self.comboBases.grid(column=0,row=2,columnspan=2,sticky="NEW",pady=1)
 
 
         # self.btnAbrirExcel.grid(column=0,row=3, sticky="NEW",pady=10)
@@ -611,6 +631,28 @@ class FrameExcel(tk.Frame):
 
 
         ###########################################
+
+        self.entryHo=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varHo)
+        self.labelHo=tk.Label(self.frameIzquierda,text="Ingrese Ho",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        self.entryH=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varH)
+        self.labelH=tk.Label(self.frameIzquierda,text="Ingrese H",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        self.entryRugosidad=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varRugosidad)
+        self.labelRugosidad=tk.Label(self.frameIzquierda,text="Ingrese Rugosidad Terreno",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        
+        self.entryFC1=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varFC1)
+        self.labelFC1=tk.Label(self.frameIzquierda,text="Ingrese FC1",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        self.entryFC2=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varFC2)
+        self.labelFC2=tk.Label(self.frameIzquierda,text="Ingrese FC2",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        self.entryFC3=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varFC3)
+        self.labelFC3=tk.Label(self.frameIzquierda,text="Ingrese FC3",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        self.entryNG=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varNG)
+        self.labelNG=tk.Label(self.frameIzquierda,text="Ingrese Número Generadores",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+        
+        self.entryArea=tk.Entry(self.frameIzquierda,width=10,textvariable=self.varArea)
+        self.labelArea=tk.Label(self.frameIzquierda,text="Ingrese Área",bg = 'steel blue',fg= 'white',font=('times', 10, 'bold'))
+
+        
+        ###########################################
         self.comboMetodos = ttk.Combobox(self.frameIzquierda,
             state="readonly",
             values=["Solar", "Eólico"]
@@ -707,6 +749,7 @@ class FrameExcel(tk.Frame):
         
 
         self.frameIzquierda.columnconfigure(0,weight=1)
+        self.frameIzquierda.columnconfigure(1,weight=1)
         self.frameIzquierda.rowconfigure(0,weight=0)
         self.frameIzquierda.rowconfigure(1,weight=0)
         self.frameIzquierda.rowconfigure(2,weight=0)
@@ -1055,6 +1098,15 @@ class FrameExcel(tk.Frame):
         self.Energ_IC_anio = self.Ic_incli.resample('Y').sum()
         self.Energ_IC_mes = self.Ic_incli.resample('M').sum()
         
+        FC1=float(self.varFC1.get())        
+        FC2=float(self.varFC2.get())        
+        FC3=float(self.varFC3.get())        
+
+        Area=float(self.varArea.get())
+
+        if FC1>0 and FC2>0 and FC3>0 and Area>0:
+            self.Energ_IC_mes=self.Energ_IC_mes*FC1*FC2*FC3*Area  
+        
         
     def obtenerSolar(self):
             
@@ -1074,7 +1126,16 @@ class FrameExcel(tk.Frame):
         
         #suma_spline = self.ener_panel_spl.sum()
         self.ener_suma_año = self.ener_panel_spl.resample('Y').sum()                                             # Energia total producida en el año
-        self.ener_mes_horizont = self.ener_panel_spl.resample('M').sum()    
+        self.ener_mes_horizont = self.ener_panel_spl.resample('M').sum()  
+
+        FC1=float(self.varFC1.get())        
+        FC2=float(self.varFC2.get())        
+        FC3=float(self.varFC3.get())        
+
+        Area=float(self.varArea.get())
+
+        if FC1>0 and FC2>0 and FC3>0 and Area>0:
+            self.ener_mes_horizont=self.ener_mes_horizont*FC1*FC2*FC3*Area  
         
         self.Ic_1E = self.ener_Ic_1E ()
         self.Energ_IC1E_anio = self.Ic_1E.resample('Y').sum() 
@@ -1146,6 +1207,18 @@ class FrameExcel(tk.Frame):
 
         self.area_eol_bdd_suma_anual = self.area_eol_bdd.resample('Y').sum()
         self.area_eol_bdd_sum_mes = self.area_eol_bdd.resample('M').sum()
+
+        FC1=float(self.varFC1.get())        
+        FC2=float(self.varFC2.get())        
+        FC3=float(self.varFC3.get())        
+
+        NG=float(self.varNG.get())
+
+        if FC1>0 and FC2>0 and FC3>0 and NG>0:
+            self.area_eol_bdd_suma_anual=self.area_eol_bdd_suma_anual*FC1*FC2*FC3*NG  
+            self.area_eol_bdd_sum_mes=self.area_eol_bdd_sum_mes*FC1*FC2*FC3*NG  
+
+        
         
         self.veloc = self.INTER_vel['Wind Speed']
         self.direc = self.INTER_direc['Wind Direction']
@@ -1194,6 +1267,15 @@ class FrameExcel(tk.Frame):
         self.pot_prob2 = np.polyval(self.integral, self.vel_parada) - np.polyval(self.integral, self.vel_arranque)
 
         self.energia_prob_anual = self.pot_prob2*8760/1000
+
+        FC1=float(self.varFC1.get())        
+        FC2=float(self.varFC2.get())        
+        FC3=float(self.varFC3.get())        
+
+        NG=float(self.varNG.get())
+
+        if FC1>0 and FC2>0 and FC3>0 and NG>0:
+            self.energia_prob_anual=self.energia_prob_anual*FC1*FC2*FC3*NG
         
         print("self.energia_prob_anual")
         print(self.energia_prob_anual)
@@ -1465,17 +1547,17 @@ class FrameExcel(tk.Frame):
             self.comboTipoMetodoEolico.set('Cronológico')
             self.comboTipoMetodoSolar.set('Masters')
             
-            self.labelLatFrameExcel.grid(column=0,row=3, sticky="NEW",pady=2)
-            self.entryLatFrameExcel.grid(column=0,row=4, sticky="NEW",pady=2)
-            self.labelLngFrameExcel.grid(column=0,row=5, sticky="NEW",pady=2)
-            self.entryLngFrameExcel.grid(column=0,row=6, sticky="NEW",pady=2)
+            self.labelLatFrameExcel.grid(column=0,row=3, columnspan=2,sticky="NEW",pady=1)
+            self.entryLatFrameExcel.grid(column=0,row=4,columnspan=2, sticky="NEW",pady=1)
+            self.labelLngFrameExcel.grid(column=0,row=5,columnspan=2, sticky="NEW",pady=1)
+            self.entryLngFrameExcel.grid(column=0,row=6,columnspan=2, sticky="NEW",pady=1)
 
-            self.btnAbrirMapa.grid(column=0,row=7, sticky="NEW",pady=[10,0])
+            self.btnAbrirMapa.grid(column=0,row=7,columnspan=2, sticky="NEW",pady=[5,0])
 
-            self.labelAnioFrameExcel.grid(column=0,row=8,sticky="NEW",pady=2)
-            self.entryAnioFrameExcel.grid(column=0,row=9,sticky="NEW",pady=2)
+            self.labelAnioFrameExcel.grid(column=0,row=8,columnspan=2,sticky="NEW",pady=1)
+            self.entryAnioFrameExcel.grid(column=0,row=9,columnspan=2,sticky="NEW",pady=1)
             
-            self.btnCargarDB.grid(column=0,row=10, sticky="NEW",pady=[10,0])
+            self.btnCargarDB.grid(column=0,row=10,columnspan=2, sticky="NEW",pady=[5,0])
         
         
         if (self.comboBases.get()=="Secretaría del Ambiente DMQ"): 
@@ -1489,13 +1571,13 @@ class FrameExcel(tk.Frame):
                     
             self.varLat.set('-0.21')   
             
-            self.labelLatFrameExcel.grid(column=0,row=3, sticky="NEW",pady=2)
-            self.entryLatFrameExcel.grid(column=0,row=4, sticky="NEW",pady=2)
-            self.labelCargarExcelDMQ.grid(column=0,row=5, sticky="NEW",pady=2)
-            self.entryNombreExcelDMQ.grid(column=0,row=6, sticky="NEW",pady=2)
-            self.btnCargarExcelDMQ.grid(column=0,row=7, sticky="NEW",pady=2)
+            self.labelLatFrameExcel.grid(column=0,row=3, sticky="NEW",pady=1)
+            self.entryLatFrameExcel.grid(column=0,row=4, sticky="NEW",pady=1)
+            self.labelCargarExcelDMQ.grid(column=0,row=5, sticky="NEW",pady=1)
+            self.entryNombreExcelDMQ.grid(column=0,row=6, sticky="NEW",pady=1)
+            self.btnCargarExcelDMQ.grid(column=0,row=7, sticky="NEW",pady=1)
             
-            self.btnCargarDB.grid(column=0,row=8, sticky="NEW",pady=[10,0])
+            self.btnCargarDB.grid(column=0,row=8, sticky="NEW",pady=[5,0])
         
         
             
@@ -1517,15 +1599,41 @@ class FrameExcel(tk.Frame):
 
     def seleccionMetodo(self,event):
         if self.comboMetodos.get()=="Solar":
+            # self.labelTipoMetodoEolico.grid_forget()
+            # self.comboTipoMetodoEolico.grid_forget()
+            # self.labelCargarArchivo.grid_forget()
+            # self.entryNombreArchivo.grid_forget()
+            # self.btnAbrirExcel.grid_forget()
+            # self.btnGraficar.grid_forget()
+
             self.labelTipoMetodoEolico.grid_forget()
             self.comboTipoMetodoEolico.grid_forget()
+            self.labelHo.grid_forget()
+            self.entryHo.grid_forget()
+            self.labelH.grid_forget()
+            self.entryH.grid_forget()
+            self.labelRugosidad.grid_forget()
+            self.entryRugosidad.grid_forget()
+            
+            self.labelFC1.grid_forget()
+            self.entryFC1.grid_forget()
+            self.labelFC2.grid_forget()
+            self.entryFC2.grid_forget()
+            self.labelFC3.grid_forget()
+            self.entryFC3.grid_forget()
+            self.labelNG.grid_forget()
+            self.entryNG.grid_forget()
+            
+            
+
             self.labelCargarArchivo.grid_forget()
             self.entryNombreArchivo.grid_forget()
             self.btnAbrirExcel.grid_forget()
             self.btnGraficar.grid_forget()
+
             ##########################
-            self.labelTipoMetodoSolar.grid(column=0,row=12,sticky="NEW",pady=2)
-            self.comboTipoMetodoSolar.grid(column=0,row=13,sticky="NEW",pady=2)
+            self.labelTipoMetodoSolar.grid(column=0,row=12,columnspan=2,sticky="NEW",pady=1)
+            self.comboTipoMetodoSolar.grid(column=0,row=13,columnspan=2,sticky="NEW",pady=1)
 
             #self.labelRho.grid(column=0,row=14,sticky="NEW",pady=2)
             # self.labelAnguloInc.grid(column=0,row=16,sticky="NEW",pady=2)
@@ -1533,16 +1641,25 @@ class FrameExcel(tk.Frame):
             # self.labelTONC.grid(column=0,row=20,sticky="NEW",pady=2)
             # self.labelPmaxSTC.grid(column=0,row=22,sticky="NEW",pady=2)
             
-            self.labelModeloPanel.grid(column=0,row=15,sticky="NEW",pady=2)
-            self.comboModeloPanel.grid(column=0,row=16,sticky="NEW",pady=2)
+            self.labelModeloPanel.grid(column=0,row=15,columnspan=2,sticky="NEW",pady=1)
+            self.comboModeloPanel.grid(column=0,row=16,columnspan=2,sticky="NEW",pady=1)
             
-            self.frameRho.grid(column=0,row=17,sticky="NSEW",pady=2)
-            self.frameAnguloInc.grid(column=0,row=18,sticky="NSEW",pady=2)
-            self.frameG.grid(column=0,row=19,sticky="NSEW",pady=2)
-            self.frameTONC.grid(column=0,row=20,sticky="NSEW",pady=2)
-            self.framePmaxSTC.grid(column=0,row=21,sticky="NSEW",pady=2)
+            self.frameRho.grid(column=0,row=17,columnspan=2,sticky="NSEW",pady=1)
+            self.frameAnguloInc.grid(column=0,row=18,columnspan=2,sticky="NSEW",pady=1)
+            self.frameG.grid(column=0,row=19,columnspan=2,sticky="NSEW",pady=1)
+            self.frameTONC.grid(column=0,row=20,columnspan=2,sticky="NSEW",pady=1)
+            self.framePmaxSTC.grid(column=0,row=21,columnspan=2,sticky="NSEW",pady=1)
 
-            self.btnGraficar.grid(column=0,row=22,sticky="NEW",pady=10)
+            self.labelFC1.grid(column=0,row=22,sticky="N",pady=1)
+            self.entryFC1.grid(column=0,row=23,sticky="N",pady=1)
+            self.labelFC2.grid(column=1,row=22,sticky="N",pady=1)
+            self.entryFC2.grid(column=1,row=23,sticky="N",pady=1)
+            self.labelFC3.grid(column=0,row=24,sticky="N",pady=1)
+            self.entryFC3.grid(column=0,row=25,sticky="N",pady=1)
+            self.labelArea.grid(column=1,row=24,sticky="N",pady=1)
+            self.entryArea.grid(column=1,row=25,sticky="N",pady=1)
+
+            self.btnGraficar.grid(column=0,row=26,columnspan=2,sticky="NEW",pady=5)
 
 
         if self.comboMetodos.get()=="Eólico":
@@ -1558,6 +1675,17 @@ class FrameExcel(tk.Frame):
             self.framePmaxSTC.grid_forget()
             self.btnGraficar.grid_forget()
 
+            self.labelFC1.grid_forget()
+            self.entryFC1.grid_forget()
+            self.labelFC2.grid_forget()
+            self.entryFC2.grid_forget()
+            self.labelFC3.grid_forget()
+            self.entryFC3.grid_forget()
+            self.labelNG.grid_forget()
+            self.entryNG.grid_forget()
+            self.labelArea.grid_forget()
+            self.entryArea.grid_forget()
+
             # self.labelRho.grid_forget()
             # self.labelAnguloInc.grid_forget()
             # self.labelG.grid_forget()
@@ -1571,12 +1699,28 @@ class FrameExcel(tk.Frame):
             # self.entryPmaxSTC.grid_forget()
 
             #######################
-            self.labelTipoMetodoEolico.grid(column=0,row=12,sticky="NEW",pady=2)
-            self.comboTipoMetodoEolico.grid(column=0,row=13,sticky="NEW",pady=2)
-            self.labelCargarArchivo.grid(column=0,row=14,sticky="NEW",pady=2)
-            self.entryNombreArchivo.grid(column=0,row=15,sticky="NEW",pady=2)
-            self.btnAbrirExcel.grid(column=0,row=16,sticky="NEW",pady=2)
-            self.btnGraficar.grid(column=0,row=17,sticky="NEW",pady=10)
+            self.labelTipoMetodoEolico.grid(column=0,row=12,columnspan=2,sticky="NEW",pady=1)
+            self.comboTipoMetodoEolico.grid(column=0,row=13,columnspan=2,sticky="NEW",pady=1)
+            self.labelHo.grid(column=0,row=14,sticky="N",pady=1)
+            self.entryHo.grid(column=0,row=15,sticky="N",pady=1)
+            self.labelH.grid(column=0,row=16,sticky="N",pady=1)
+            self.entryH.grid(column=0,row=17,sticky="N",pady=1)
+            self.labelRugosidad.grid(column=0,row=18,sticky="N",pady=1)
+            self.entryRugosidad.grid(column=0,row=19,sticky="N",pady=1)
+
+            self.labelFC1.grid(column=1,row=14,sticky="N",pady=1)
+            self.entryFC1.grid(column=1,row=15,sticky="N",pady=1)
+            self.labelFC2.grid(column=1,row=16,sticky="N",pady=1)
+            self.entryFC2.grid(column=1,row=17,sticky="N",pady=1)
+            self.labelFC3.grid(column=1,row=18,sticky="N",pady=1)
+            self.entryFC3.grid(column=1,row=19,sticky="N",pady=1)
+            self.labelNG.grid(column=0,row=20,columnspan=2,sticky="NEW",pady=1)
+            self.entryNG.grid(column=0,row=21,columnspan=2,sticky="NEW",pady=1)
+
+            self.labelCargarArchivo.grid(column=0,row=22,columnspan=2,sticky="NEW",pady=1)
+            self.entryNombreArchivo.grid(column=0,row=23,columnspan=2,sticky="NEW",pady=1)
+            self.btnAbrirExcel.grid(column=0,row=24,columnspan=2,sticky="NEW",pady=1)
+            self.btnGraficar.grid(column=0,row=25,columnspan=2,sticky="NEW",pady=5)
         if self.comboMetodos.get()=="":
             print("Vaciooooo")
 
@@ -1592,6 +1736,35 @@ class FrameExcel(tk.Frame):
         valorComboMetodo=self.comboMetodos.get()
         valorComboTipoMetodoS=self.comboTipoMetodoSolar.get()
         valorComboTipoMetodoE=self.comboTipoMetodoEolico.get()
+
+        # H=float(self.varH.get())
+        # Ho=float(self.varHo.get())
+        # Zo=float(self.varRugosidad.get())
+
+        # print("H")
+        # print(H)
+        # print("Ho")
+        # print(Ho)
+        # print("Zo")
+        # print(Zo)
+
+        self.procesarDB()
+        
+        
+        # if valorComboMetodo=="Eólico":
+        #     print("self.bdd_float")
+        #     print(self.bdd_float)
+        #     self.bdd_float["Wind Speed"]=self.bdd_float["Wind Speed"]*(math.log(H/Zo)/math.log(Ho/Zo))
+        #     print("self.bdd_float")
+        #     print(self.bdd_float)
+        #     self.tablaDatos=Table(self.frameTablaDatos,dataframe=self.bdd_float,showtoolbar=False,
+        #     showstatusbar=True,
+        #     editable=False)
+        #     self.tablaDatos.contractColumns()
+        #     self.tablaDatos.show()
+            #@Fin alturas viento
+            #buscar bddfloat antes de los calculos
+            #return
         
         if valorComboBase=="NREL":
             if valorComboMetodo=="Solar":
@@ -2468,8 +2641,8 @@ class FrameExcel(tk.Frame):
             self.auxDF=self.df
             
             
-            self.labelEscogerMetodo.grid(column=0,row=11,sticky="NEW",pady=2)
-            self.comboMetodos.grid(column=0,row=12,sticky="NEW",pady=2)
+            self.labelEscogerMetodo.grid(column=0,row=11,columnspan=2,sticky="NEW",pady=1)
+            self.comboMetodos.grid(column=0,row=12,columnspan=2,sticky="NEW",pady=1)
             
             self.procesarDB()
             
@@ -2486,8 +2659,8 @@ class FrameExcel(tk.Frame):
             self.auxDF=self.df.copy()          
             
             
-            self.labelEscogerMetodo.grid(column=0,row=11,sticky="NEW",pady=2)
-            self.comboMetodos.grid(column=0,row=12,sticky="NEW",pady=2)
+            self.labelEscogerMetodo.grid(column=0,row=11,sticky="NEW",pady=1)
+            self.comboMetodos.grid(column=0,row=12,sticky="NEW",pady=1)
             
             self.procesarDB()
             #self.pt1=Table()
@@ -2507,6 +2680,28 @@ class FrameExcel(tk.Frame):
         print(self.auxDF)
         
         self.bdd_float=self.df.copy()
+
+        valorComboBase=self.comboBases.get()
+        valorComboMetodo=self.comboMetodos.get()
+        valorComboTipoMetodoS=self.comboTipoMetodoSolar.get()
+        valorComboTipoMetodoE=self.comboTipoMetodoEolico.get()
+
+        H=float(self.varH.get())
+        Ho=float(self.varHo.get())
+        Zo=float(self.varRugosidad.get())
+
+        if valorComboMetodo=="Eólico":
+            if H>0 and Zo:
+                print("self.bdd_float")
+                print(self.bdd_float)
+                self.bdd_float["Wind Speed"]=self.bdd_float["Wind Speed"]*(math.log(H/Zo)/math.log(Ho/Zo))
+                print("self.bdd_float")
+                print(self.bdd_float)
+                self.tablaDatos=Table(self.frameTablaDatos,dataframe=self.bdd_float,showtoolbar=False,
+                showstatusbar=True,
+                editable=False)
+                self.tablaDatos.contractColumns()
+                self.tablaDatos.show()
         
         print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         print("self.bdd_float")
@@ -2564,6 +2759,8 @@ class FrameExcel(tk.Frame):
         cols = list(self.bdd_float.columns)
         cols = [cols[-1]] + cols[:-1]
         self.bdd_float=self.bdd_float[cols]
+
+        
         
         print("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
         print("????????????????????????????  bdd_float  ???????????????????")
@@ -3017,6 +3214,15 @@ class FrameExcel(tk.Frame):
         print("-----------------------------------------------")
         print("self.Temp_prom_mes.Temperatura")
         print(self.Temp_prom_mes.Temperatura)
+
+        FC1=float(self.varFC1.get())        
+        FC2=float(self.varFC2.get())        
+        FC3=float(self.varFC3.get())        
+
+        Area=float(self.varArea.get())
+
+        if FC1>0 and FC2>0 and FC3>0 and Area>0:
+            Ic_tiw=Ic_tiw*FC1*FC2*FC3*Area
 
         return Ic_tiw
     
