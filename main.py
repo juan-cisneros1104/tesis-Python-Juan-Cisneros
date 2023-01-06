@@ -492,7 +492,7 @@ class FrameExcel(tk.Frame):
 
         self.comboBases = ttk.Combobox(self.frameIzquierda,
             state="readonly",
-            values=["NREL", "Secretaría del Ambiente DMQ"]
+            values=["NREL", "Archivo Excel"]
         )
 
 
@@ -1164,7 +1164,7 @@ class FrameExcel(tk.Frame):
         if (self.comboBases.get()=="NREL"):    
             self.kT_diario_t, self.kT_mensual_t  = self.kt_bdd_tiwari (self.GHI_diario, self.num_dia, self.kT_mensual)   
         
-        if (self.comboBases.get()=="Secretaría del Ambiente DMQ"): 
+        if (self.comboBases.get()=="Archivo Excel"): 
             self.kT_diario_t, self.kT_mensual_t  = self.kt_bdd_tiwariDMQ (self.GHI_diario, self.num_dia, self.kT_mensual)   
             
         self.Ic_tiw = self.ener_Ic_tiw ()
@@ -1177,6 +1177,10 @@ class FrameExcel(tk.Frame):
         
         self.sumaEnerTiwHor = self.ener_mes_horizont.iloc[:,0].sum()
         self.sumaEnerTiwInc = self.Energ_Ic_tiw_mes.iloc[:,0].sum()
+          
+        for i in self.energias_TIWARI.index:
+            self.varAnio.set(i.strftime('%Y'))
+            break
         
         
         ####eolico crono
@@ -1279,6 +1283,11 @@ class FrameExcel(tk.Frame):
         
         print("self.energia_prob_anual")
         print(self.energia_prob_anual)
+        
+
+        for i in self.area_eol_bdd_sum_mes.index:
+            self.varAnio.set(i.strftime('%Y'))
+            break
         
     
 #########################################################################################################################################################################
@@ -1482,7 +1491,7 @@ class FrameExcel(tk.Frame):
     def ejecutarCargaDB(self):
         if (self.comboBases.get()=="NREL"): 
             self.cargarNREL()
-        if (self.comboBases.get()=="Secretaría del Ambiente DMQ"):
+        if (self.comboBases.get()=="Archivo Excel"):
             self.cargarDMQ()
     
     def plotFrecsDirsWeibull(self):
@@ -1560,7 +1569,7 @@ class FrameExcel(tk.Frame):
             self.btnCargarDB.grid(column=0,row=10,columnspan=2, sticky="NEW",pady=[5,0])
         
         
-        if (self.comboBases.get()=="Secretaría del Ambiente DMQ"): 
+        if (self.comboBases.get()=="Archivo Excel"): 
             for slave in self.frameIzquierda.grid_slaves():
                 if int(slave.grid_info()["row"]) > 2:
                     slave.grid_forget()
@@ -1777,7 +1786,7 @@ class FrameExcel(tk.Frame):
                     self.graficarCronoNREL()
                 if valorComboTipoMetodoE=="Estadístico (Weibull)":
                     self.graficarWeibullNREL()
-        if valorComboBase=="Secretaría del Ambiente DMQ": 
+        if valorComboBase=="Archivo Excel": 
             if valorComboMetodo=="Solar":
                 if valorComboTipoMetodoS=="Masters":
                     self.graficarMastersNREL() 
@@ -2338,6 +2347,8 @@ class FrameExcel(tk.Frame):
         self.btnTabsCronoNREL6.configure(background="gray94")
         
         np_aux_bar=self.area_eol_bdd_sum_mes.iloc[:,0].to_numpy()
+        
+        
         auxTicks=np.linspace(0,len(self.area_eol_bdd_sum_mes),len(self.area_eol_bdd_sum_mes))
         
         self.reAddSubplot()
@@ -2701,7 +2712,9 @@ class FrameExcel(tk.Frame):
                 showstatusbar=True,
                 editable=False)
                 self.tablaDatos.contractColumns()
-                self.tablaDatos.show()
+                self.tablaDatos.show()                        
+                self.tablaDatos.contractColumns()
+                self.tablaDatos.redraw()
         
         print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         print("self.bdd_float")
@@ -2773,6 +2786,12 @@ class FrameExcel(tk.Frame):
         editable=False)
         self.tablaDatos.contractColumns()
         self.tablaDatos.show()
+        self.tablaDatos.contractColumns()
+        self.tablaDatos.redraw()
+
+        # self.tablaDatos.updateModel(self.bdd_float)            
+        # self.tablaDatos.contractColumns()
+        # self.tablaDatos.redraw()
     
         self.btnTabsDatosAux.grid_forget()
         
